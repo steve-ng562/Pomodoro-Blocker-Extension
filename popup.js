@@ -13,17 +13,23 @@ interval = setInterval(function(){
 callInterval();
 },1000);
 
+$(".btn-danger").click(function(){
+onStartClick = false;
+}
+
 function callInterval(){
 	if(onStartClick == false && onBreak == false){
 		return;
-	}else if(onStartClick == true && onBreak == true){
+	}else if(onBreak == true){
 		minutes = breakTime;
 		onBreak = false;
 	}
 	if(seconds == 0){
 		if(minutes == 0){
 			timerEnded();
+
 			return;
+			}
 		}
 		seconds = 59;
 		minutes--;
@@ -31,10 +37,17 @@ function callInterval(){
 		seconds--;
 	}
 	updateText();
+	chrome.runtime.sendMessage({onStart:onStartClick,break:onBreak},function(response)){
+
+	});
 }
  function timerEnded(){
-        onStartClick = false;
-        onBreak = true;
+            if(onBreak == true){
+				onBreak = false;
+				minutes = 25;
+			}else
+			    onBreak = true;
+    		}
     }
 function updateText(){
 	$(".minutes").text(toDoubleDigit(minutes));

@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Pomodoro Timer v2",
+  "description": "This extension combines a pomodoro timer along w/ blocking access.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tab",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*"
+  ]
+}
